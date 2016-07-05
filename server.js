@@ -92,9 +92,14 @@ app.get('/addBook', function(req, res) {
               bookDetails.publisher = "Unknown";
             }
             bookDetails.ISBN = ISBN;
-            allBooks[ISBN] = bookDetails;
-            res.send('ISBN added to collection :)');
-            io.emit('Book added :)', bookDetails);
+            if (!allBooks[ISBN]){
+              allBooks[ISBN] = bookDetails;
+              res.send('ISBN added to collection :)');
+              io.emit('Book added :)', bookDetails);
+            }
+            else {
+              res.send('Book already added')
+            }
           }
         });
       }
