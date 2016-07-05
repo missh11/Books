@@ -58,7 +58,7 @@ app.get('/form', function (req, res) {
     res.locals = {name:req.query.name, shoesize:req.query.shoesize, favcolour:req.query.favcolour, dob:date};
     res.render('details');
   }
-  
+
   else {
     res.redirect('/static');
   }
@@ -116,7 +116,7 @@ app.get('/removeBook', function(req, res) {
       res.send('Book deleted');
     }
     else {
-      res.send('ISBN not in table');  
+      res.send('ISBN not in table');
     }
   }
   else {
@@ -141,5 +141,5 @@ io.on('connection', function(socket){
 });
 
 http.listen(process.env.PORT || 3000, function () {
-  // console.log('Example app listening on port 3000!');
+  console.log('Example app listening on port 3000!');
 });
