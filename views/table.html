@@ -1,0 +1,42 @@
+<DOCTYPE! HTML>
+    <html>
+        <head>
+            <title>Table</title>
+        </head>
+        <body>
+            <h1 style="font-family: Arial; text-align: center">Results</h1>
+            <table id="books" align="center" style="border-collapse:collapse;">
+                <thead>
+                    <tr style="border-bottom:1px solid black;">
+                        <th style ="font-family: Arial; font-size: 20px; padding:5px;">Title</th>
+                        <th style ="font-family: Arial; font-size: 20px; padding:5px;border-left:1px solid black;">Author</th>
+                        <th style ="font-family: Arial; font-size: 20px; padding:5px;border-left:1px solid black;">Publisher</th>
+                        <th style ="font-family: Arial; font-size: 20px; padding:5px;border-left:1px solid black;">ISBN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#result}}
+                    <tr id="{{ISBN}}">
+                        <td style="font-family: Arial; font-size: 16px; color: red; text-align: center; padding:5px;">{{title}}</td>
+                        <td style="font-family: Arial; font-size: 16px; color: purple; text-align: center; padding:5px;border-left:1px solid black;">{{author}}</td>
+                        <td style="font-family: Arial; font-size: 16px; color: blue; text-align: center; padding:5px;border-left:1px solid black;">{{publisher}}</td>
+                        <td style="font-family: Arial; font-size: 16px; color: green; text-align: center; padding:5px;border-left:1px solid black;">{{ISBN}}</td>
+                    </tr>
+                    {{/result}}
+                </tbody>
+            </table>
+            <script src="//cdn.socket.io/socket.io-1.4.5.js"></script>
+            <script>
+              var socket = io();
+              socket.on('Book added :)', function(book){
+                  console.log(book)
+                  var tr=document.createElement('tr')
+                  tr.innerHTML = `<td style="font-family: Arial; font-size: 16px; color: red; text-align: center; padding:5px;">${book.title}</td>
+                        <td style="font-family: Arial; font-size: 16px; color: purple; text-align: center; padding:5px;border-left:1px solid black;">${book.author}</td>
+                        <td style="font-family: Arial; font-size: 16px; color: blue; text-align: center; padding:5px;border-left:1px solid black;">${book.publisher}</td>
+                        <td style="font-family: Arial; font-size: 16px; color: green; text-align: center; padding:5px;border-left:1px solid black;">${book.ISBN}</td>`
+                document.querySelector('#books > tbody').appendChild(tr);
+              });
+            </script>
+        </body>
+    </html>
